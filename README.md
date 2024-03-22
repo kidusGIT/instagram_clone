@@ -1,16 +1,9 @@
-# instagram_clone
+# Instagram Clone
 
-A new Flutter project.
+### Simple Instagram clone  
++ This project is built using flutter and firebase.
++ Use flutter state management provider.
++ You can make a post.
++ You can put a comment on the post.
++ You can like a post.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

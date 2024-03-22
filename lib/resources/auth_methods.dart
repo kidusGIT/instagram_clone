@@ -115,4 +115,8 @@ class AuthMethods {
 
     return model.User.fromSnap(documentSnapshot);
   }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
 }

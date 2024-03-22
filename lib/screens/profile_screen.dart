@@ -3,7 +3,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/resources/auth_methods.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
+import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:instagram_clone/models/user.dart' as model;
@@ -12,10 +14,12 @@ import 'package:instagram_clone/utils/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
+  bool isUser;
 
-  const ProfileScreen({
+  ProfileScreen({
     Key? key,
     required this.uid,
+    this.isUser = false,
   }) : super(key: key);
 
   @override
@@ -30,6 +34,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int _following = 0;
   bool _isLoading = true;
   bool _isFollowing = false;
+
+  bool _isSigningOut = false;
 
   @override
   void initState() {
@@ -150,14 +156,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 210,
                               child: user.uid == widget.uid
                                   ? ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        setState(() {
+                                          _isSigningOut = false;
+                                        });
+                                        await AuthMethods().signOut();
+                                        setState(() {
+                                          _isSigningOut = true;
+                                        });
+
+                                        if (_isSigningOut) {
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LoginScreen(),
+                                            ),
+                                          );
+                                        }
+                                      },
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
                                           secondaryColor,
                                         ),
                                       ),
-                                      child: const Text('Edit Profile'),
+                                      child: const Text('Logout'),
                                     )
                                   : _isFollowing
                                       ? ElevatedButton(
